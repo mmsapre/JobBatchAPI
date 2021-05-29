@@ -1,0 +1,30 @@
+# ===================================================================
+# Spring Boot configuration for the "dev" profile.
+#
+# This configuration overrides the application.yml file.
+#
+# ===================================================================
+
+spring:
+  data:
+    mongodb:
+#      uri: mongodb://myadmin:secret@localhost:27017/test?authSource=admin
+      port: 27017
+      host: localhost
+      database: test
+#      authentication-database: admin
+      repositories:
+        type: auto
+  cloud:
+    config:
+      # Allow local configuration to override Remote Externalized configuration
+      allowOverride: false
+      # But, only System properties or Env variables (and not local config files) will override externalized configuration
+      overrideSystemProperties: false
+  profiles:
+    active: dev
+  devtools:
+    restart:
+      enabled: true
+    jackson:
+      serialization.indent_output: true
