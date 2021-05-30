@@ -1,11 +1,13 @@
 # Job Batch API Module
 
-* [Summary](#markdown-header-summary)
-* [Prerequisites](#markdown-header-prerequisites)
-* [Build](#markdown-header-build)
-* [High Level Overview](#markdown-header-high-level-overview)
-* [Run](#markdown-header-run)
-* [Author](#markdown-header-author)
+* [Summary](#summary)
+* [Prerequisites](#prerequisites)
+* [Build](#build)
+* [High Level Overview](#high-level-overview)
+* [Run](#deploy)
+* [Author](#author)
+
+[img-jobbatchapi]: img/JobBatchAPI.jpeg
 
 ## Summary
 Job Batch is admin api which currently provides 
@@ -40,7 +42,21 @@ mvn -U clean compile -DskipTests
 
 ## High Level Overview
 
-As a part of job batch execution there is requirement to know status of the jobs executed.This provides the same.
+This is query only module to know the jobs with there status.Its built using Spring Boot and Spring Data MongoDb.
+
+Exposed API : 
+    - /api/jobs : API lists jobs with status.
+    - /api/jobs : API lists job execution with details of read , write and skipped record counts
+
+Collections :
+    - BatchJobInstance : Maintains different jobs executed.
+    - BatchJobExecution : Contains jobs execution details for the instance.
+    - BatchStepExecution : Maintains steps executed as part of job execution.
+    - BatchJobParameter : Maintains job execution parameters.
+
+Diagram below, shows high level component communication for JobBatchAPI
+
+![JobBatchAPI][img-jobbatchapi]
 ## Deploy
 
 Clone locally
@@ -51,6 +67,6 @@ Execute standard maven deploy command to build and deploy library into Artifact 
 mvn clean deploy
 ```
 
-## Whom do I talk to, for further queries?
+## Author
 
 * Repo owner - maheshsapre@gmail.com
