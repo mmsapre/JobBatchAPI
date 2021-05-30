@@ -36,14 +36,6 @@ public class JobBatchService {
         ProjectionOperation projectionOperation=Aggregation.project("batchJobInstance.jobInstanceId","batchJobExecution.jobExecutionId",
                 "batchJobInstance.jobName","batchJobExecution.status","batchJobExecution.exitCode","batchJobExecution.startTime","batchJobExecution.endTime");
 
-//       GroupOperation groupOperation= Aggregation.group("jobInstanceId").
-//                push("batchJobInstance.jobInstanceId").as("jobInstanceId")
-//                .push("batchJobExecution.jobExecutionId").as("jobExecutionId")
-//                .push("batchJobInstance.jobName").as("jobName")
-//                .push("batchJobExecution.status").as("jobStatus")
-//                .push("batchJobExecution.exitMessage").as("message")
-//                .push("batchJobExecution.startTime").as("startTime")
-//                .push("batchJobExecution.endTime").as("endTime");
         Aggregation aggregation = Aggregation.newAggregation(lookupOperationJobInstance,Aggregation.unwind("$batchJobInstance"),lookupOperationJobExecution,Aggregation.unwind("$batchJobExecution"),
                 projectionOperation);
         List<JobBatchResult> results = mongoTemplate.aggregate(aggregation, "BatchJobInstance", JobBatchResult.class).getMappedResults();
@@ -67,14 +59,6 @@ public class JobBatchService {
         ProjectionOperation projectionOperation=Aggregation.project("batchStepExecution.stepName","batchJobExecution.jobExecutionId",
                 "batchStepExecution.status","batchStepExecution.readCount","batchJobExecution.writeCount","batchJobExecution.processSkipCount");
 
-//       GroupOperation groupOperation= Aggregation.group("jobInstanceId").
-//                push("batchJobInstance.jobInstanceId").as("jobInstanceId")
-//                .push("batchJobExecution.jobExecutionId").as("jobExecutionId")
-//                .push("batchJobInstance.jobName").as("jobName")
-//                .push("batchJobExecution.status").as("jobStatus")
-//                .push("batchJobExecution.exitMessage").as("message")
-//                .push("batchJobExecution.startTime").as("startTime")
-//                .push("batchJobExecution.endTime").as("endTime");
         Aggregation aggregation = Aggregation.newAggregation(Aggregation.match(Criteria.where("jobExecutionId").is(Integer.valueOf(jobExecId+""))),lookupOperationJobInstance,Aggregation.unwind("$batchJobExecution"),lookupOperationJobExecution,Aggregation.unwind("batchStepExecution"),
                 projectionOperation);
         List<JobBatchDetails> results = mongoTemplate.aggregate(aggregation, "BatchJobExecution", JobBatchDetails.class).getMappedResults();
