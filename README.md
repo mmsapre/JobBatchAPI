@@ -10,7 +10,7 @@
 [img-jobbatchapi]: img/JobBatchAPI.jpeg
 
 ## Summary
-Job Batch is admin api which currently provides 
++ Job Batch is admin api which currently provides 
     - /api/jobs : API lists jobs with status
     - /api/jobs : API lists job execution with details of read , write and skipped record counts
 
@@ -44,11 +44,11 @@ mvn -U clean compile -DskipTests
 
 This is query only module to know the jobs with there status.Its built using Spring Boot and Spring Data MongoDb.
 
-Exposed API : 
++ Exposed API : 
     - /api/jobs : API lists jobs with status.
     - /api/jobs : API lists job execution with details of read , write and skipped record counts
 
-Collections :
++ MongoDB Collections :
     - BatchJobInstance : Maintains different jobs executed.
     - BatchJobExecution : Contains jobs execution details for the instance.
     - BatchStepExecution : Maintains steps executed as part of job execution.
@@ -66,7 +66,17 @@ Execute standard maven deploy command to build and deploy library into Artifact 
 # Build and deploy
 mvn clean deploy
 ```
+Setup MongoDb properties
 
+```shell
+spring:
+    data:
+        mongodb:
+        #      uri: mongodb://myadmin:secret@localhost:27017/test?authSource=admin
+            port: 27017
+            host: localhost
+            database: test
+```
 ## Author
 
 * Repo owner - maheshsapre@gmail.com
