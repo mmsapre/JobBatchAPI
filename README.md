@@ -40,8 +40,7 @@ mvn -U clean compile -DskipTests
 
 ## High Level Overview
 
-As a part of iGTB Digital API architecture, there is a need to develop Action API Facade module (at Atomic layer)
-
+As a part of job batch execution there is requirement to know status of the jobs executed.This provides the same.
 ## Deploy
 
 Clone locally
